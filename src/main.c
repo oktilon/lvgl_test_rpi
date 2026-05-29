@@ -13,11 +13,6 @@
 
 #include "lvgl/lvgl.h"
 
-/* Internal functions */
-static int parseArguments(int argc, char ** argv);
-static void printVersion(void);
-static void printHelp(char *cmd);
-
 typedef enum app_modes_enum {
     unknown = -1,
     defaultMode = 0,
@@ -26,6 +21,12 @@ typedef enum app_modes_enum {
     dispRainbow,
     solidFill
 } appMode;
+
+
+/* Internal functions */
+static appMode parseArguments(int argc, char ** argv);
+static void printVersion(void);
+static void printHelp(char *cmd);
 
 unsigned long userColor = 0;
 const char * devicePath = "/dev/fb0";
@@ -117,7 +118,7 @@ static void areaTimerCallback(lv_timer_t *timer) {
 }
 
 static void areaDrawCallback(lv_event_t *e) {
-    lv_obj_t *area = lv_event_get_target_obj(e);
+    // lv_obj_t *area = lv_event_get_target_obj(e);
     lv_draw_task_t * drawTask = lv_event_get_draw_task(e);
     lv_draw_dsc_base_t * baseDsc = (lv_draw_dsc_base_t *) lv_draw_task_get_draw_dsc(drawTask);
     if(baseDsc->part == LV_PART_MAIN) {
@@ -160,7 +161,7 @@ int main(int argc, char ** argv) {
     /* Initialize LVGL. */
     lv_init();
 
-    lv_display_t * disp = lv_linux_fbdev_create();
+    disp = lv_linux_fbdev_create();
     if(disp == NULL) {
         printf("Init display error\n");
         return EIO;
