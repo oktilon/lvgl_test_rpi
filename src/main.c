@@ -196,7 +196,7 @@ int main(int argc, char ** argv) {
     /* Enter the run loop of the selected backend */
     while(true) {
         /* Returns the time to the next timer execution */
-        idle_time = 1; //lv_timer_handler();
+        idle_time = lv_timer_handler();
         usleep(idle_time * 1000);
     }
 
