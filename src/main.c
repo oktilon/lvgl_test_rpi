@@ -182,6 +182,8 @@ int main(int argc, char ** argv) {
         uint32_t color = (uint32_t)(userColor & 0xFFFFFF);
         lv_obj_set_style_bg_color(screen, lv_color_hex(color), LV_PART_MAIN);
     } else { // defaultMode
+        uint32_t color = (uint32_t)(userColor & 0x000000);
+        lv_obj_set_style_bg_color(screen, lv_color_hex(color), LV_PART_MAIN);
         lv_obj_t *btn = lv_button_create(screen);
         lv_obj_set_size(btn, lv_pct(60), lv_pct(20));
         lv_obj_align(btn, LV_ALIGN_CENTER, 0, 0);
@@ -194,7 +196,7 @@ int main(int argc, char ** argv) {
     /* Enter the run loop of the selected backend */
     while(true) {
         /* Returns the time to the next timer execution */
-        idle_time = lv_timer_handler();
+        idle_time = 1; //lv_timer_handler();
         usleep(idle_time * 1000);
     }
 
